@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app = "oneApp">
+<head>
+  <title> AngularJS </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+</head>
+<body ng-init="kings=['Ronak', 'Ryan H', 'Andy', 'Lauren','Ahmed', 'Ryan G' ]">
+<h1> Welcome to <img src = "./AngularJS-large.png" style = "width: 100px;"/> </h1>
+
+<div ng-controller = "oneController">
+  search: <input type="text" ng-model="searchItem "/>
+  <br />
+  <h3> The Kings Army: </h3>
+  <table>
+    <tr>
+      <input type="text" ng-model="addName" placeholder="Name"/>
+      <input type="text" ng-model="addTotal" placeholder="Total Amount"/>
+      <button ng-click="addPerson()">Add</button>
+    </tr>
+
+    <tr ng-repeat="king in kings | filter: searchItem">
+      <td> {{ king.name }}</td>
+      <td></td>
+      <td>{{ king.Total | currency}}</td>
+    </tr>
+  </table>
+  <hail-hydra></hail-hydra>
+</div>
+<script>
+  var app = angular.module('oneApp', []);
+
+  app.controller('oneController', function($scope) {
+    $scope.kings = [
+
+    ]
+    $scope.addPerson = function() {
+      var newId = $scope.kings.length;
+      newId++;
+
+      $scope.kings.push(
+        {id:newId, name: $scope.addName, Total: $scope.addTotal}
+      );
+    };
+  });
+
+  app.directive('hailHydra', function(){
+    return {
+      template: "<h1> Hail Hydra!!</h1>"
+    }
+  })
+
+</script>
+
+</body>
+</html>
